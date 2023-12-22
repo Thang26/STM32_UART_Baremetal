@@ -20,5 +20,15 @@ void USART2_Write(int data){
     /* Wait until the TX Buffer is empty*/
     while (!(USART2_TX_BUFF_READY)) {}
     USART2->DR = (data & 0xFF);
+}
 
+void USART2_WriteString(char *data){
+
+    while(*data != '\0'){
+        
+        /* Wait until the TX Buffer is empty*/
+        while (!(USART2_TX_BUFF_READY)) {}
+        USART2_Write((int)(*data));
+        data++;
+    }
 }
