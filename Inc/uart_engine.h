@@ -14,3 +14,4 @@
 
 void USART2_Init(void);
 void USART2_Write(int data);
+void USART2_WriteString(char *data);
