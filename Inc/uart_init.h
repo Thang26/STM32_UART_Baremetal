@@ -5,6 +5,7 @@
  *      Author: Thang Pham
  * 
  *  Header file associated with the init of UART peripheral.
+ *  Contains macros for the init functions.
  * 
  */
 
@@ -56,7 +57,7 @@
 #define USART2_DISABLE      (0U << 13)
 #define USART2_ENABLE       (1U << 13)
 
-#define UART2_CR1_SEL(SEL)                 SET_BIT(USART2->CR1, SEL)
+#define USART2_CR1_SEL(SEL)                 SET_BIT(USART2->CR1, SEL)
 
 /*
  *  Macro for UART Control 2 Register
@@ -66,7 +67,7 @@
 #define USART2_STOP_HALF_BIT    (1U << 12)
 #define USART2_STOP_TWO_BIT     (2U << 12)
 
-#define UART2_CR2_SEL(SEL)                 SET_BIT(USART2->CR2, SEL)
+#define USART2_CR2_SEL(SEL)                 SET_BIT(USART2->CR2, SEL)
 
 /*
  *  Macro for UART Control 3 Register
@@ -74,4 +75,10 @@
 
 #define USART2_NO_FLOW_CONTROL  (0xFFF << 0)
 
-#define UART2_CR3_SEL(SEL)                 SET_BIT(USART2->CR3, SEL)
+#define USART2_CR3_SEL(SEL)                 SET_BIT(USART2->CR3, SEL)
+
+/*
+ *  Macro to check the status of USART2's data register.
+ */
+
+#define USART2_TX_BUFF_READY                CHECK_BIT(USART2->SR, 1U << 7)
