@@ -42,7 +42,7 @@ void LED_FLASH_TIMER_UPDATE_VAL(UINT16 ARR_Div_Val){
  * will be applied AFTER the current timer cycle has finished.
  */
 
-void LCD_DELAY_OPM_TIMER_INIT(UINT16 ARR_Div_Val){
+void DELAY_OPM_TIMER_INIT(UINT16 ARR_Div_Val){
 
     APB1_TIMERx_ENABLE(TIMER_2_EN);
     TIM2->PSC = 1600 - 1;
@@ -53,7 +53,7 @@ void LCD_DELAY_OPM_TIMER_INIT(UINT16 ARR_Div_Val){
     TIM2_START;
 }
 
-void LCD_DELAY_OPM_TIMER_UPDATE(UINT16 ARR_Div_Val){
+void DELAY_OPM_TIMER_UPDATE(UINT16 ARR_Div_Val){
 
     TIM2_FLAG_CLEAR;
     TIM2->CNT = 0;
