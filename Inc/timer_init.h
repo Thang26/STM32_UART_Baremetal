@@ -11,8 +11,8 @@
 
 void LED_FLASH_TIMER_INIT(UINT16 PSC_Div_Val, UINT16 ARR_Div_Val);
 void LED_FLASH_TIMER_UPDATE_VAL(UINT16 ARR_Div_Val);
-void LCD_DELAY_OPM_TIMER_INIT(UINT16 ARR_Div_Val);
-void LCD_DELAY_OPM_TIMER_UPDATE(UINT16 ARR_Div_Val);
+void DELAY_OPM_TIMER_INIT(UINT16 ARR_Div_Val);
+void DELAY_OPM_TIMER_UPDATE(UINT16 ARR_Div_Val);
 
 
 /*
@@ -64,7 +64,7 @@ void LCD_DELAY_OPM_TIMER_UPDATE(UINT16 ARR_Div_Val);
 #define TIM3_FLAG_CLEAR     CLEAR_BIT(TIM3->SR, 1U << 0)
 
 /*
- *  Macro to check the UIE bit within the SR register
+ *  Macro to check the UIF bit within the SR register
  */
 
 #define TIM2_COMPLETE_EVENT (TIM2->SR & (1U << 0))
@@ -78,7 +78,7 @@ void LCD_DELAY_OPM_TIMER_UPDATE(UINT16 ARR_Div_Val);
 #define TIM3_IRQ_EN         SET_BIT(TIM3->DIER, 1U << 0)
 
 /*
- *  Configures a TIMERx to disable itself after one event
+ *  Configures a TIMERx to disable itself after one overflow event
  */
 
 #define TIM2_OPM_EN         SET_BIT(TIM2->CR1, 1U << 3)
