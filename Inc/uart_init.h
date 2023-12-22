@@ -75,7 +75,7 @@
 
 #define USART2_NO_FLOW_CONTROL  (0xFFF << 0)
 
-#define USART2_CR3_SEL(SEL)                 SET_BIT(USART2->CR3, SEL)
+#define USART2_CR3_SEL(SEL)                 CLEAR_BIT(USART2->CR3, SEL)
 
 /*
  *  Macro to check the status of USART2's data register.
