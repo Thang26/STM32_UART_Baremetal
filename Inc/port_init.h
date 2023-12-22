@@ -78,6 +78,16 @@
 #define GPIOC_BSRR_ALL_CLEAR                    SET_BIT(GPIOC->BSRR, 0xFFFF << BSRR_PIN_CLEAR)
 
 /*
+ *  Macro for GPIO AFR Register
+ *  Select LOW for Pin 0 - 7, HIGH for Pin 8 - 15
+ */
+
+#define AFR_LOW     0
+#define AFR_HIGH    1
+
+#define GPIOA_AFR_SEL(HIGH_LOW, PIN_NUM, PERIPH_SEL)     SET_BIT(GPIOA->AFR[(HIGH_LOW)], (PERIPH_SEL) << (PIN_NUM * 4))
+
+/*
  *  Other macros / masks for GPIO
  */
 
