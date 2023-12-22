@@ -22,6 +22,10 @@ void USART2_Write(int data){
     USART2->DR = (data & 0xFF);
 }
 
+/*
+ * Function to write a string of data onto the UART data register to be sent out.
+ */
+
 void USART2_WriteString(char *data){
 
     while(*data != '\0'){
