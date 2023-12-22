@@ -17,6 +17,9 @@
  */
 
 #include <stdint.h>
+#include <common.h>
+#include <uart_engine.h>
+#include <timer_init.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -24,6 +27,14 @@
 
 int main(void)
 {
-    /* Loop forever */
-	for(;;);
+    USART2_Init();
+    DELAY_OPM_TIMER_INIT(100);
+    
+    while(1){
+
+      USART2_WriteString("Hello Tom! ");
+      DELAY_OPM_TIMER_UPDATE(5000);
+      while(!(TIM2_COMPLETE_EVENT)){}
+
+    }
 }
