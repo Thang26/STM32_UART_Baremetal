@@ -39,5 +39,6 @@ typedef enum {
 #define CLEAR_BIT(REG,PIN)      ((REG) &= ~(PIN))
 #define TOGGLE_BIT(REG,PIN)     ((REG) ^= (PIN))
 #define HARD_SET_BIT(REG,PIN)   ((REG) = (PIN))
+#define CHECK_BIT(REG,PIN)      ((REG) & (PIN))
 
 #endif /* COMMON_H_ */
