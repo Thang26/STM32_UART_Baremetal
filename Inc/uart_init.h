@@ -29,6 +29,7 @@
  */
 
 #define USART2_TX       (0x7)
+#define USART3_TX       (0x7)
 
 /*
  *  Macro for UART Baud Rate Register
@@ -50,12 +51,12 @@
  *  Macro for UART Control 1 Register
  */
 
-#define USART2_TX_DISBL     (0U << 3)
-#define USART2_TX_ENBL      (1U << 3)
-#define USART2_WORD_8BIT    (0U << 12)
-#define USART2_WORD_9BIT    (1U << 12)
-#define USART2_DISABLE      (0U << 13)
-#define USART2_ENABLE       (1U << 13)
+#define USART_TX_DISBL     (0U << 3)
+#define USART_TX_ENBL      (1U << 3)
+#define USART_WORD_8BIT    (0U << 12)
+#define USART_WORD_9BIT    (1U << 12)
+#define USART_DISABLE      (0U << 13)
+#define USART_ENABLE       (1U << 13)
 
 #define USART2_CR1_SEL(SEL)                 SET_BIT(USART2->CR1, SEL)
 
@@ -63,9 +64,9 @@
  *  Macro for UART Control 2 Register
  */
 
-#define USART2_STOP_ONE_BIT     (0U << 12)
-#define USART2_STOP_HALF_BIT    (1U << 12)
-#define USART2_STOP_TWO_BIT     (2U << 12)
+#define USART_STOP_ONE_BIT     (0U << 12)
+#define USART_STOP_HALF_BIT    (1U << 12)
+#define USART_STOP_TWO_BIT     (2U << 12)
 
 #define USART2_CR2_SEL(SEL)                 SET_BIT(USART2->CR2, SEL)
 
@@ -73,7 +74,7 @@
  *  Macro for UART Control 3 Register
  */
 
-#define USART2_NO_FLOW_CONTROL  (0xFFF << 0)
+#define USART_NO_FLOW_CONTROL  (0xFFF << 0)
 
 #define USART2_CR3_SEL(SEL)                 CLEAR_BIT(USART2->CR3, SEL)
 
