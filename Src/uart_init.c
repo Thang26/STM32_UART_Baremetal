@@ -72,3 +72,5 @@ void USART3_Init(void){
     /* Enable USART3 after configuration complete*/
     USART3_CR1_SEL(USART_ENABLE);
 }
+
+/* TODO: Add a mechanism to auto adjust AFR_LOW or AFR_HIGH dependent on the PIN_NUM being inputted. */
