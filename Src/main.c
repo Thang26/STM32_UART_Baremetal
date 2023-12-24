@@ -27,14 +27,17 @@
 
 int main(void)
 {
-    USART2_Init();
-    DELAY_OPM_TIMER_INIT(100);
-    
-    while(1){
+  USART3_Init();
+  DELAY_OPM_TIMER_INIT(100);
+  char sineWave[12] = {'1', '2', '3', '5', '8', '9', '9', '8', '5', '3', '2', '1'};
+  int i;
 
-      USART2_WriteString("Hello Tom! ");
-      DELAY_OPM_TIMER_UPDATE(5000);
+  while(1){
+
+    for(i = 0; i < 12; i++){
+      USART3_Write(sineWave[i]);
+      DELAY_OPM_TIMER_UPDATE(300);
       while(!(TIM2_COMPLETE_EVENT)){}
-
     }
+  }
 }
