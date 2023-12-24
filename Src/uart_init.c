@@ -56,6 +56,10 @@ void USART3_Init(void){
     RCC_UART_CLK_ENABLE_APB1(USART3_CLK_EN);
 
     /* Configure PC10 for USART3_TX */
+    /* WARNING: Remember to select AFR_HIGH for pin 8 - 15! */
+    /* WARNING: PB10 can also be used for USART3_TX.
+     * However, with the 64pin package, PB11 does not exist for USART3_RX.
+     */
     GPIOC_AFR_SEL(AFR_HIGH, PIN_10, USART3_TX);
     GPIOC_MODER_SEL(PIN_10, ALT_SEL);
 
