@@ -1,3 +1,8 @@
+# Overall purpose of this program is to graph the data that is being transmitted from the STM32F446RE micro.
+# This program reads the data present at the PC's COM port.
+# This data is transmitted from the TTL CP2102 chip UART->USB.
+# The TTL CP2102's job is to receive the data from STM32F446RE via UART, and output it to the PC via USB.
+
 import serial
 import matplotlib.pyplot as plt
 from itertools import count
