@@ -11,6 +11,9 @@ from matplotlib import style
 
 # Read the UART data being streamed by CP2102 into COM5.
 COMvalue = serial.Serial('COM5', 9600)
+serial.PARITY_NONE
+serial.EIGHTBITS
+serial.STOPBITS_ONE
 
 # Function to read data from COM5 port.
 def getData():
@@ -38,7 +41,7 @@ def update(i):
 
     # Gets our next values for the x and y axis.
     xs.append(next(index))
-    ys.append(int(getData()))
+    ys.append(int(getData().hex(),16))
 
     # Set those new values to be plotted.
     image.set_data(xs, ys)
