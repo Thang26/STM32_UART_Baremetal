@@ -67,7 +67,7 @@ void USART2_WriteString(char *data){
  * Function to write data onto the UART3 data register to be sent out.
  */
 
-void USART3_Write(int data){
+void USART3_Write(UINT8 data){
 
     /* Wait until the TX Buffer is empty*/
     while (!(USART3_TX_BUFF_READY)) {}
@@ -84,7 +84,7 @@ void USART3_WriteString(char *data){
         
         /* Wait until the TX Buffer is empty*/
         while (!(USART3_TX_BUFF_READY)) {}
-        USART3_Write((int)(*data));
+        USART3_Write((UINT8)(*data));
         data++;
     }
 }
