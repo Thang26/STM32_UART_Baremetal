@@ -29,15 +29,16 @@ int main(void)
 {
   USART3_Init();
   DELAY_OPM_TIMER_INIT(100);
-  char sineWave[12] = {'1', '2', '3', '5', '8', '9', '9', '8', '5', '3', '2', '1'};
+  UINT8 sineWave[18] = {0,1,2,3,5,8,10,11,12,12,11,10,8,5,3,2,1,0};
   int i;
 
   while(1){
 
-    for(i = 0; i < 12; i++){
+    for(i = 0; i < 18; i++){
       USART3_Write(sineWave[i]);
-      DELAY_OPM_TIMER_UPDATE(300);
+      DELAY_OPM_TIMER_UPDATE(5000);
       while(!(TIM2_COMPLETE_EVENT)){}
     }
+
   }
 }
