@@ -12,6 +12,7 @@
  *  Header Declarations
  */
 #include <stdint.h>
+#include <stdbool.h>
 #include <stm32f446xx.h>
 
 /*
@@ -21,7 +22,13 @@ typedef uint8_t UINT8;
 typedef int8_t INT8;
 typedef uint16_t UINT16;
 typedef uint32_t UINT32;
+typedef bool BOOL;
 
+/*
+ *  Data size definitions.
+ */
+
+#define SIZE_OF_BYTE 8
 
 /*
  *  Enum declarations

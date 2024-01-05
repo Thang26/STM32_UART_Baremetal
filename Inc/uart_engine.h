@@ -21,3 +21,4 @@ void USART2_WriteString(char *data);
 void USART3_Init(void);
 void USART3_Write(int data);
 void USART3_WriteString(char *data);
+void ENCODE_FUNC(UINT16 dataValue, UINT8 *first_send, UINT8 *second_send, UINT8 *first_transmit, UINT8 *second_transmit);

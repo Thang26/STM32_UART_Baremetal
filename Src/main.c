@@ -29,16 +29,23 @@ int main(void)
 {
   USART3_Init();
   DELAY_OPM_TIMER_INIT(100);
-  UINT8 sineWave[18] = {0,1,2,3,5,8,10,11,12,12,11,10,8,5,3,2,1,0};
-  int i;
+  UINT16 sineWave[1] = {696};
+  UINT8 first_send[SIZE_OF_BYTE] = {0, 0, 0, 0, 1};
+  UINT8 second_send[SIZE_OF_BYTE] = {1, };
+  UINT8 first_transmit, second_transmit;
 
   while(1){
 
-    for(i = 0; i < 18; i++){
-      USART3_Write(sineWave[i]);
-      DELAY_OPM_TIMER_UPDATE(5000);
-      while(!(TIM2_COMPLETE_EVENT)){}
-    }
+    //Does UART send the MSB or LSB first?
 
+    ENCODE_FUNC(sineWave[0], first_send, second_send, &first_transmit, &second_transmit);
+
+    USART3_Write(first_transmit);
+    DELAY_OPM_TIMER_UPDATE(5000);
+    while(!(TIM2_COMPLETE_EVENT)){}
+
+    USART3_Write(second_transmit);
+    DELAY_OPM_TIMER_UPDATE(5000);
+    while(!(TIM2_COMPLETE_EVENT)){}
   }
 }
