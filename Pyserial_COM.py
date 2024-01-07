@@ -16,7 +16,7 @@ serial.EIGHTBITS
 serial.STOPBITS_ONE
 
 # Function to read data from COM5 port.
-def getData():
+def DECODE_FUNC():
 
     #   Expand on this later cause I'm tired. But basically, it read the second transmission FIRST,
     #   then paired it up with the first transmission of the NEXT packet.
@@ -86,7 +86,7 @@ def convert(list):
 # @Debug Code
 # def main():
 #     while True:
-#         getData()
+#         DECODE_FUNC()
 # main()
 
 
@@ -114,7 +114,7 @@ def update(i):
 
     # Gets our next values for the x and y axis.
     xs.append(next(index))
-    ys.append(getData())
+    ys.append(DECODE_FUNC())
 
     # Set those new values to be plotted.
     image.set_data(xs, ys)
