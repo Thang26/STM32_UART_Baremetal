@@ -18,8 +18,6 @@ serial.STOPBITS_ONE
 # Function to read data from COM5 port.
 def getData():
 
-    flag = 0
-    check = 0
     #   Expand on this later cause I'm tired. But basically, it read the second transmission FIRST,
     #   then paired it up with the first transmission of the NEXT packet.
     #   Was very hard to detect because between 690 and 693, the second packet does not differ.
@@ -28,9 +26,14 @@ def getData():
     second_transmission = []
     ADC_value = []
 
+
+    flag = 0
+    firstTransmit_NOT_EMPTY = 0
+    
     while flag != 2:
         data = bin(int((COMvalue.read()).hex(), 16))[2:].zfill(8)
 
+        # @Debug Code
         # print("\n" + "Data is obtained.")
         # print(data)
 
@@ -39,29 +42,37 @@ def getData():
         
         if (binary_list[0] == 0):
             first_transmission = binary_list[0:8]
+            # @Debug Code
             # print("First transmission got assigned.")
             # print(first_transmission)
-            flag += 1
-            check = 1
-        elif(check == 1):
+
+            # TODO add description
+            if(firstTransmit_NOT_EMPTY == 0):
+                flag += 1
+                firstTransmit_NOT_EMPTY = 1
+
+        elif(firstTransmit_NOT_EMPTY == 1):
             second_transmission = binary_list[0:8]
+            # @Debug Code
             # print("Second transmission got assigned.")
             # print(second_transmission)
             flag += 1
-            check = 0
+            firstTransmit_NOT_EMPTY = 0
 
+    # @Debug Code
     # For syntax of list[-1:-9:-1], it's actually [-9, -8, -7, -6 ... -1] and it's interating thu by doing element -1 + (-1)
-    # print("\n" + "Printing first_transmission[-1:-5:-1]: " + str(first_transmission[-1:-4:-1]))
-    # print("\n" + "Printing second_transmission[-1:-9:-1]: " + str(second_transmission[-1:-8:-1]))
+    # print("\n" + "Printing first_transmission[-1:-4:-1]: " + str(first_transmission[-1:-4:-1]))
+    # print("\n" + "Printing second_transmission[-1:-8:-1]: " + str(second_transmission[-1:-8:-1]))
     
     ADC_value = convert((second_transmission[-1:-8:-1] + first_transmission[-1:-4:-1]))
 
+    # @Debug Code
     # print("\n" + "Printing ADC value")
     # print(ADC_value)
 
     return ADC_value
 
-# Function to join together the list of binary values into a singular binary.
+# Function to join together the list of individual binary values into a singular binary.
 def convert(list):
      
     # Converting integer list to string list
@@ -72,11 +83,16 @@ def convert(list):
      
     return(result)
 
+# @Debug Code
 # def main():
 #     while True:
 #         getData()
 # main()
 
+
+# This portion of the code is responsible for graphing the ADC values.
+# This uses matplotlib to do the graphing.
+# It also has an animation portion that moves the x-axis dynamically with the data.
 style.use('fivethirtyeight')
 
 # Counts upward by 1, serves as our x-axis basis
