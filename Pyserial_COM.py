@@ -33,18 +33,11 @@ def DECODE_FUNC():
     while flag != 2:
         data = bin(int((COMvalue.read()).hex(), 16))[2:].zfill(8)
 
-        # @Debug Code
-        # print("\n" + "Data is obtained.")
-        # print(data)
-
         # Splits the binary data into individual bits within a list. This is so each individual bit can be accessed.
         binary_list = [int(x) for x in str(data)]
         
         if (binary_list[0] == 0):
             first_transmission = binary_list[0:8]
-            # @Debug Code
-            # print("First transmission got assigned.")
-            # print(first_transmission)
 
             # TODO add description
             if(firstTransmit_NOT_EMPTY == 0):
@@ -53,21 +46,11 @@ def DECODE_FUNC():
 
         elif(firstTransmit_NOT_EMPTY == 1):
             second_transmission = binary_list[0:8]
-            # @Debug Code
-            # print("Second transmission got assigned.")
-            # print(second_transmission)
             flag += 1
             firstTransmit_NOT_EMPTY = 0
-
-    # @Debug Code
-    # For syntax of list[-1:-9:-1], it's actually [-9, -8, -7, -6 ... -1] and it's interating thu by doing element -1 + (-1)
-    # print("\n" + "Printing first_transmission[-1:-4:-1]: " + str(first_transmission[-1:-4:-1]))
-    # print("\n" + "Printing second_transmission[-1:-8:-1]: " + str(second_transmission[-1:-8:-1]))
     
     ADC_value = convert((second_transmission[-1:-8:-1] + first_transmission[-1:-4:-1]))
 
-    # @Debug Code
-    # print("\n" + "Printing ADC value")
     # print(ADC_value)
 
     return ADC_value
@@ -82,12 +65,6 @@ def convert(list):
     result = int("".join(s), base=2)
      
     return(result)
-
-# @Debug Code
-# def main():
-#     while True:
-#         DECODE_FUNC()
-# main()
 
 
 # This portion of the code is responsible for graphing the ADC values.
