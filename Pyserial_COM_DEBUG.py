@@ -19,7 +19,7 @@ from bisect import bisect_left
 #
 
 # Read the UART data being streamed by CP2102 into COM5.
-COMvalue = serial.Serial('COM5', 9600)
+COMvalue = serial.Serial('COM5', 115200)
 serial.PARITY_NONE
 serial.EIGHTBITS
 serial.STOPBITS_ONE
@@ -34,7 +34,7 @@ def DECODE_FUNC():
     first_transmission = []
     second_transmission = []
     ADC_value = []
-    global FAIL_COUNTER
+    global FAIL_COUNTER, GLOBAL_COUNTER
 
 
     flag = 0
@@ -63,6 +63,8 @@ def DECODE_FUNC():
 
             else:
                 print("Previous first transmit was overwritten!")
+                print(f"{GLOBAL_COUNTER} tests has ran before error.")
+                GLOBAL_COUNTER += 1
                 FAIL_COUNTER += 1
 
         elif(firstTransmit_NOT_EMPTY == 1):
@@ -77,6 +79,8 @@ def DECODE_FUNC():
 
         else:
             print("Second transmit was received prematurely and was skipped!")
+            print(f"{GLOBAL_COUNTER} tests has ran before error.")
+            GLOBAL_COUNTER += 1
             FAIL_COUNTER += 1
 
     # @Debug Code
@@ -110,6 +114,8 @@ def convert(list):
 
 SUCCESS_COUNTER = 0
 FAIL_COUNTER = 0
+GLOBAL_COUNTER = 0
+ERROR_LIST = []
 
 SINE_WAVE = [
     0, 1, 3, 6, 11, 17, 24, 33, 43, 54, 66,
@@ -118,17 +124,6 @@ SINE_WAVE = [
     476, 496, 516, 534, 553, 570, 586, 602, 616, 630,
     642, 653, 663, 672, 679, 685, 690, 693, 695, 696
     ]
-
-#Changed 6 to 7
-#Changed 326 to 340
-#Changed 616 to 625
-# SINE_WAVE = [
-#     0, 1, 3, 7, 11, 17, 24, 33, 43, 54, 66,
-#     80, 94, 110, 126, 143, 162, 180, 200, 220, 240,
-#     261, 283, 304, 340, 348, 370, 392, 413, 435, 456,
-#     476, 496, 516, 534, 553, 570, 586, 602, 625, 630,
-#     642, 653, 663, 672, 679, 685, 690, 693, 695, 696
-#     ]
 
 # Binary search function 
 def SEARCH_ELEMENT(ARR, TARGET_VAL):
@@ -174,10 +169,11 @@ def SYNC_FUNC():
 # @Debug Code
 def main():
 
-    global SUCCESS_COUNTER, FAIL_COUNTER
-    TOTAL_TEST_TO_DO = 1000000
+    global SUCCESS_COUNTER, FAIL_COUNTER, ERROR_LIST, GLOBAL_COUNTER
+    TOTAL_TEST_TO_DO = 100000
 
     # SYNC PORTION
+    # Do we even need this portion?
     ARRAY_INDEX = SYNC_FUNC()
 
     if ARRAY_INDEX == -1:
@@ -185,13 +181,13 @@ def main():
         exit()
 
     else:
-        print("Sync is successful, data located within array.")
-        print(f"ARRAY_INDEX = {ARRAY_INDEX}, which is = {SINE_WAVE[ARRAY_INDEX]}")
+        print("\nSync is successful, data located within array.")
+        print(f"ARRAY_INDEX = {ARRAY_INDEX}, which is = {SINE_WAVE[ARRAY_INDEX]}\n")
 
         # Resets both counters to clear any results from SYNC function.
         SUCCESS_COUNTER = 0
         FAIL_COUNTER = 0
-
+        GLOBAL_COUNTER = 0
 
     # TEST PORTION
     for ITERATION in range(TOTAL_TEST_TO_DO):
@@ -202,16 +198,21 @@ def main():
 
         if ARRAY_INDEX == -1:
             FAIL_COUNTER += 1
+            ERROR_LIST.append(ADC_VALUE)
             print("Error value has been received!")
+            print(f"{GLOBAL_COUNTER} tests has ran before error.")
         
         else:
             SUCCESS_COUNTER += 1
 
-        progress_bar(ITERATION, TOTAL_TEST_TO_DO)
+        #progress_bar(ITERATION, TOTAL_TEST_TO_DO)
+        GLOBAL_COUNTER += 1
 
     print("\n\nError testing has finished!")
     print(f"SUCCESS COUNTER = {SUCCESS_COUNTER}")
     print(f"FAIL COUNTER = {FAIL_COUNTER}")
+    print(f"\nError transmits are")
+    print(ERROR_LIST)
 
 def progress_bar(ITERATION_VAL, TOTAL_VAL):
     
