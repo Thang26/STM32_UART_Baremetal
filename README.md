@@ -1,0 +1,3 @@
+This is my practice code to learn how to set up UART on the STM32F446RE dev board. The CP2102 UART to USB bridge chip is used to transmit data from MCU to the PC. Pyserial is used to receive the transmitted UART data from COM port and do whatever with it.
+
+This repo uses the driver folder from STM32Cube_FW_F4_V1.27.1. This includes BSP, CMSIS, and STM32F4xx_HAL_Driver. Additionally, it uses the STM32F446RETX_FLASH/RAM linkerscripts.
